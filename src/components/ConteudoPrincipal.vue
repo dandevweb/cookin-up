@@ -1,23 +1,37 @@
 <script lang="ts">
+import { ref } from 'vue';
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
 import SuaLista from './SuaLista.vue';
-import Tag from './Tag.vue';
     export default {
-        components: {
-            SelecionarIngredientes,
-            Tag,
-            SuaLista,
-        },
- 
+      setup() {
+      const ingredientes = ref<string[]>([]);
+
+      function adicionarIngrediente(ingrediente: string) {
+        ingredientes.value.push(ingrediente)
+      }
+      function removerIngrediente(ingrediente: string) {
+        ingredientes.value = ingredientes.value.filter(iLista => ingrediente !== iLista);
+      }
+
+      return {
+        ingredientes,
+        adicionarIngrediente,
+        removerIngrediente
+      }
+    },
+  components: { SelecionarIngredientes, SuaLista },
     }
 </script>
 
 <template>
    <main class="conteudo-principal">
 
-    <SuaLista />
+    <SuaLista :ingredientes="ingredientes" />
 
-    <SelecionarIngredientes/>
+    <SelecionarIngredientes
+      @adicionar-ingrediente="adicionarIngrediente($event)"
+      @remover-ingrediente="removerIngrediente($event)"
+    />
 
    </main>
 </template>
@@ -28,7 +42,6 @@ import Tag from './Tag.vue';
   border-radius: 3.75rem 3.75rem 0rem 0rem;
   background: var(--creme, #FFFAF3);
   color: var(--cinza, #444);
-
   display: flex;
   flex-direction: column;
   align-items: center;

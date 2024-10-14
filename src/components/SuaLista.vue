@@ -2,9 +2,10 @@
 import Tag from './Tag.vue';
 
     export default {
-        data() {
-            return {
-                ingredientes: ['Alho', 'Cebola', 'Tomate', 'Orégano'],
+        props: {
+            ingredientes: {
+                type: Array,
+                required: true,
             }
         },
         components: {

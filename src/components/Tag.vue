@@ -8,10 +8,10 @@
             ativo: Boolean
         },
     }
-</script>
+</script> 
 
 <template>
-    <span class="tag" :class="{ ativo }">
+    <span class="tag" :class="{ ativo }" >
         {{ texto }}
     </span>
 </template>
